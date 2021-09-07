@@ -1,8 +1,17 @@
 import React from "react";
+import Comment from "../../Comment/Comment";
+import { useSelector, useDispatch } from "react-redux";
+import { tooglePostComments } from "../../Slices/rootSlice";
 import "./Post.css";
 
 const Post = ({ post }) => {
-  console.log(post);
+  let showComments = useSelector((state) => {
+    return state.posts.find((cuurentPost) => {
+      return cuurentPost.postId === post.postId;
+    }).showComments;
+  });
+  const dispatch = useDispatch();
+
   return (
     <div class="container posts-content custContainer">
       <div class="row">
@@ -13,7 +22,7 @@ const Post = ({ post }) => {
                 <div className="stats">
                   <div>
                     <img
-                      src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                      src={post.thumbnailUrl}
                       class="d-block ui-w-40 rounded-circle"
                       alt=""
                     />
@@ -29,38 +38,46 @@ const Post = ({ post }) => {
               <div className="post">
                 <p>{post.body}</p>
               </div>
-              <a
-                href="javascript:void(0)"
+              <p
                 class="ui-rect ui-bg-cover"
                 style={{
-                  backgroundImage:
-                    "url('https://bootdey.com/img/Content/avatar/avatar3.png",
+                  backgroundImage: `url('${post.url}')`,
                 }}
-              ></a>
+              ></p>
             </div>
             <div class="card-footer">
-              <a
-                href="javascript:void(0)"
-                class="d-inline-block footer-text text-muted"
-              >
-                <small>
-                  <strong>123</strong> Likes
-                </small>
-              </a>
-              <a
-                href="javascript:void(0)"
-                class="d-inline-block text-muted footer-text ml-3"
-              >
-                <small>
-                  <strong>12</strong> Comments
-                </small>
-              </a>
-              <a
-                href="javascript:void(0)"
-                class="d-inline-block footer-text text-muted ml-3"
-              >
-                <small class="align-middle">Repost</small>
-              </a>
+              <div className="stats">
+                <p
+                  class="d-inline-block footer-text text-muted"
+                  style={{ textDecoration: "underline" }}
+                >
+                  <small>
+                    <strong>123</strong> Likes
+                  </small>
+                </p>
+                <button
+                  onClick={() => {
+                    dispatch(tooglePostComments(post.postId));
+                  }}
+                  class="d-inline-block text-muted footer-text ml-3"
+                  style={{ textDecoration: "underline" }}
+                >
+                  <small>
+                    <strong>{post.comments.length}</strong> Comments
+                  </small>
+                </button>
+                <p
+                  class="d-inline-block footer-text text-muted ml-3"
+                  style={{ textDecoration: "underline" }}
+                >
+                  <small class="align-middle">Repost</small>
+                </p>
+              </div>
+              {showComments
+                ? post.comments.map((comment) => {
+                    return <Comment comment={comment} />;
+                  })
+                : null}
             </div>
           </div>
         </div>

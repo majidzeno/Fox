@@ -3,3 +3,9 @@
   justify-content: center;
   align-content: center;
 }
+.moreBtn {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 2rem;
+}
