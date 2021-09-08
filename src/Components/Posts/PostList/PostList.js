@@ -50,6 +50,7 @@ const PostList = () => {
                           comments: comments,
                           showComments: false,
                         };
+                        console.log(final);
                         dispatch(addPost(final));
                       })
                       .catch((e) => {

@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <p className="navbar-brand">Navbar scroll</p>
+        <p className="navbar-brand">Social Platform</p>
         <button
           className="navbar-toggler"
           type="button"
