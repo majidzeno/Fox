@@ -8,8 +8,9 @@ import "./PostList.css";
 const PostList = () => {
   const posts = useSelector((state) => state.posts);
   const numOfPosts = useSelector((state) => state.numOfPosts);
+  const searchValue = useSelector((state) => state.searchValue);
   const dispatch = useDispatch();
-
+  console.log(searchValue);
   useEffect(() => {
     const getData = () => {
       axios
@@ -73,13 +74,17 @@ const PostList = () => {
 
   return (
     <div>
-      {posts.map((post, index) => {
-        if (index < numOfPosts) {
-          return <Post post={post} />;
-        } else {
-          return null;
-        }
-      })}
+      {posts
+        .filter((post) => {
+          return post.name.toLowerCase().includes(searchValue.toLowerCase());
+        })
+        .map((post, index) => {
+          if (index < numOfPosts) {
+            return <Post post={post} />;
+          } else {
+            return null;
+          }
+        })}
       <div className="moreBtn">
         <button
           onClick={() => {

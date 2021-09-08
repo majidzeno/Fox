@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   posts: [],
   numOfPosts: 6,
+  searchValue: "",
 };
 
 const rootSlice = createSlice({
@@ -27,9 +28,29 @@ const rootSlice = createSlice({
         }
       }
     },
+    addComment: (state, action) => {
+      for (let i = 0; i < state.posts.length; i++) {
+        if (action.payload.postId === state.posts[i].postId) {
+          state.posts[i].comments.push(action.payload.comment);
+        }
+      }
+    },
+    changeSearch: (state, action) => {
+      state.searchValue = action.payload;
+    },
+    userAddPost: (state, action) => {
+      state.posts.unshift(action.payload);
+    },
   },
 });
 
-export const { getPosts, morePosts, addPost, tooglePostComments } =
-  rootSlice.actions;
+export const {
+  getPosts,
+  morePosts,
+  addPost,
+  tooglePostComments,
+  addComment,
+  changeSearch,
+  userAddPost,
+} = rootSlice.actions;
 export default rootSlice.reducer;

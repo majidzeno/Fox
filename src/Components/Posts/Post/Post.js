@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Comment from "../../Comment/Comment";
 import { useSelector, useDispatch } from "react-redux";
-import { tooglePostComments } from "../../Slices/rootSlice";
+import { tooglePostComments, addComment } from "../../Slices/rootSlice";
 import "./Post.css";
 
 const Post = ({ post }) => {
@@ -10,6 +10,10 @@ const Post = ({ post }) => {
       return cuurentPost.postId === post.postId;
     }).showComments;
   });
+
+  const commentEmail = useRef();
+  const commentBody = useRef();
+
   const dispatch = useDispatch();
 
   return (
@@ -87,12 +91,12 @@ const Post = ({ post }) => {
                   >
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-secondary"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
                       data-bs-whatever="@mdo"
                     >
-                      Add Movie
+                      Add Comment
                     </button>
                   </div>
 
@@ -107,7 +111,7 @@ const Post = ({ post }) => {
                       <div className="modal-content">
                         <div className="modal-header">
                           <h5 className="modal-title" id="exampleModalLabel">
-                            New Movie
+                            New Comment
                           </h5>
                           <button
                             type="button"
@@ -127,6 +131,7 @@ const Post = ({ post }) => {
                               </label>
                               <input
                                 type="text"
+                                ref={commentEmail}
                                 className="form-control"
                                 id="user-email"
                                 required
@@ -141,8 +146,10 @@ const Post = ({ post }) => {
                               </label>
                               <input
                                 type="text"
+                                ref={commentBody}
                                 className="form-control"
                                 id="comment-body"
+                                required
                               />
                             </div>
                           </form>
@@ -157,6 +164,18 @@ const Post = ({ post }) => {
                           </button>
                           <button
                             type="button"
+                            onClick={() => {
+                              const newComment = {
+                                postId: post.postId,
+                                comment: {
+                                  email: commentEmail.current.value,
+                                  body: commentBody.current.value,
+                                },
+                              };
+                              dispatch(addComment(newComment));
+                              commentEmail.current.value = "";
+                              commentBody.current.value = "";
+                            }}
                             data-bs-dismiss="modal"
                             className="btn btn-primary"
                           >
