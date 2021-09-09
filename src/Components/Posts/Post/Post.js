@@ -42,12 +42,14 @@ const Post = ({ post }) => {
               <div className="post">
                 <p>{post.body}</p>
               </div>
-              <p
-                class="ui-rect ui-bg-cover"
-                style={{
-                  backgroundImage: `url('${post.url}')`,
-                }}
-              ></p>
+              {post.url === "" ? null : (
+                <p
+                  class="ui-rect ui-bg-cover"
+                  style={{
+                    backgroundImage: `url('${post.url}')`,
+                  }}
+                ></p>
+              )}
             </div>
             <div class="card-footer">
               <div className="stats">
