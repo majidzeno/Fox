@@ -3,6 +3,7 @@ import Comment from "../../Comment/Comment";
 import { useSelector, useDispatch } from "react-redux";
 import { tooglePostComments, addComment } from "../../Slices/rootSlice";
 import "./Post.css";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   let showComments = useSelector((state) => {
@@ -21,36 +22,38 @@ const Post = ({ post }) => {
       <div class="row">
         <div class="col-lg-12">
           <div class="card mb-4">
-            <div class="card-body">
-              <div class="media mb-3">
-                <div className="stats">
-                  <div>
-                    <img
-                      src={post.thumbnailUrl}
-                      class="d-block ui-w-40 rounded-circle"
-                      alt=""
-                    />
-                  </div>
-                  <div className="name">
-                    <div class="media-body ml-3">
-                      {post.name}
-                      <div class="text-muted small">3 days ago</div>
+            <Link to={`/post/${post.postId}`}>
+              <div class="card-body">
+                <div class="media mb-3">
+                  <div className="stats">
+                    <div>
+                      <img
+                        src={post.thumbnailUrl}
+                        class="d-block ui-w-40 rounded-circle"
+                        alt=""
+                      />
+                    </div>
+                    <div className="name">
+                      <div class="media-body ml-3">
+                        {post.name}
+                        <div class="text-muted small">3 days ago</div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div className="post">
+                  <p>{post.body}</p>
+                </div>
+                {post.url === "" ? null : (
+                  <p
+                    class="ui-rect ui-bg-cover"
+                    style={{
+                      backgroundImage: `url('${post.url}')`,
+                    }}
+                  ></p>
+                )}
               </div>
-              <div className="post">
-                <p>{post.body}</p>
-              </div>
-              {post.url === "" ? null : (
-                <p
-                  class="ui-rect ui-bg-cover"
-                  style={{
-                    backgroundImage: `url('${post.url}')`,
-                  }}
-                ></p>
-              )}
-            </div>
+            </Link>
             <div class="card-footer">
               <div className="stats">
                 <p
