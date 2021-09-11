@@ -8,6 +8,7 @@ function App() {
   return (
     <div>
       <Header />
+      <h1>Maria Ayman</h1>
       <Switch>
         <Route exact path="/" component={PostList} />
         <Route exact path="/addpost" component={AddPost} />
