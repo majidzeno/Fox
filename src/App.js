@@ -7,6 +7,7 @@ import PostDetail from "./Components/PostDetail/PostDetail";
 function App() {
   return (
     <div>
+      <p>amr</p>
       <Header />
       <Switch>
         <Route exact path="/" component={PostList} />
