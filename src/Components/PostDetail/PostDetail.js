@@ -15,6 +15,7 @@ const PostDetail = ({ postId }) => {
 
   return (
     <div>
+      <h1>masa2 el 5eir</h1>
       <Post post={currentPost} />
     </div>
   );
