@@ -8,22 +8,21 @@ import NavSide from "./Components/Side Nav/SideNav";
 function App() {
   return (
     <div class="container">
-  <div class="row">
-  <Header />
-    <div class="col-lg-2">
-      <NavSide />
+      <div class="row">
+        <Header />
+
+        <div class="col-lg-2">
+          <NavSide />
+        </div>
+
+        <div class="col-lg-8">
+          <PostList />
+        </div>
+        
+        <div class="col-lg-2">Column</div>
+      </div>
     </div>
-    <div class="col-lg-8">
-    <PostList />
-    </div>
-    <div class="col-lg-2">
-      Column
-    </div>
-  </div>
-</div>
   );
 }
 
 export default App;
-
-
