@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import icon from "./favicon.ico";
+
 import "./nav.css";
 const NavSide = () => {
   return (
@@ -7,7 +7,7 @@ const NavSide = () => {
       <div class="container side">
         <div class="row">
           <div class="col-2">
-            <img src={icon} className="nav-img" alt="icon" />
+            <img className="nav-img" alt="icon" />
           </div>
 
           <div class="col-10">
