@@ -67,7 +67,7 @@ const Header = () => {
             <li className="nav-item">
               <p
                 className="nav-link disabled"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-disabled="true"
               >
                 Link
@@ -76,7 +76,7 @@ const Header = () => {
           </ul>
           <form className="d-flex">
             <input
-              class="form-control me-2"
+              className="form-control me-2"
               ref={searchValue}
               type="search"
               placeholder="Search"

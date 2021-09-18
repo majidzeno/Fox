@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { tooglePostComments, addComment } from "../../Slices/rootSlice";
 import "./Post.css";
 import { Link } from "react-router-dom";
+import ProfilePage from '../../../Pages/ProfilePage';
 
 const Post = ({ post }) => {
   let showComments = useSelector((state) => {
@@ -18,25 +19,25 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
 
   return (
-    <div class="container posts-content custContainer">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card mb-4">
+    <div className="container posts-content custContainer">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="card mb-4">
             <Link to={`/post/${post.postId}`}>
-              <div class="card-body">
-                <div class="media mb-3">
+              <div className="card-body">
+                <div className="media mb-3">
                   <div className="stats">
                     <div>
                       <img
                         src={post.thumbnailUrl}
-                        class="d-block ui-w-40 rounded-circle"
+                        className="d-block ui-w-40 rounded-circle"
                         alt=""
                       />
                     </div>
                     <div className="name">
-                      <div class="media-body ml-3">
-                        {post.name}
-                        <div class="text-muted small">3 days ago</div>
+                      <div className="media-body ml-3">
+                        <Link to={`/profile/${post.userId}`}>{post.name}</Link>
+                        <div className="text-muted small">3 days ago</div>
                       </div>
                     </div>
                   </div>
@@ -46,7 +47,7 @@ const Post = ({ post }) => {
                 </div>
                 {post.url === "" ? null : (
                   <p
-                    class="ui-rect ui-bg-cover"
+                    className="ui-rect ui-bg-cover"
                     style={{
                       backgroundImage: `url('${post.url}')`,
                     }}
@@ -54,10 +55,10 @@ const Post = ({ post }) => {
                 )}
               </div>
             </Link>
-            <div class="card-footer">
+            <div className="card-footer">
               <div className="stats">
                 <p
-                  class="d-inline-block footer-text text-muted"
+                  className="d-inline-block footer-text text-muted"
                   style={{ textDecoration: "underline" }}
                 >
                   <small>
@@ -68,7 +69,7 @@ const Post = ({ post }) => {
                   onClick={() => {
                     dispatch(tooglePostComments(post.postId));
                   }}
-                  class="d-inline-block text-muted footer-text ml-3"
+                  className="d-inline-block text-muted footer-text ml-3"
                   style={{ textDecoration: "underline" }}
                 >
                   <small>
@@ -76,10 +77,10 @@ const Post = ({ post }) => {
                   </small>
                 </button>
                 <p
-                  class="d-inline-block footer-text text-muted ml-3"
+                  className="d-inline-block footer-text text-muted ml-3"
                   style={{ textDecoration: "underline" }}
                 >
-                  <small class="align-middle">Repost</small>
+                  <small className="align-middle">Repost</small>
                 </p>
               </div>
               {showComments

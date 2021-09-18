@@ -5,73 +5,73 @@ import { morePosts, addPost } from "../../Slices/rootSlice";
 import axios from "axios";
 import "./PostList.css";
 
-const PostList = () => {
-  const posts = useSelector((state) => state.posts);
-  const numOfPosts = useSelector((state) => state.numOfPosts);
+const PostList = ({posts, numOfPosts}) => {
+  //const posts = useSelector((state) => state.posts);
+  //const numOfPosts = useSelector((state) => state.numOfPosts);
   const searchValue = useSelector((state) => state.searchValue);
   const dispatch = useDispatch();
   console.log(searchValue);
-  useEffect(() => {
-    const getData = () => {
-      axios
-        .get("https://jsonplaceholder.typicode.com/posts")
-        .then((res) => {
-          const allPosts = res.data;
-          for (let i = 0; i < allPosts.length; i++) {
-            let currentPost = allPosts[i];
-            axios
-              .get(`https://jsonplaceholder.typicode.com/photos?id=${i + 1}`)
-              .then((res) => {
-                let photo = res.data[0];
-                axios
-                  .get(
-                    `https://jsonplaceholder.typicode.com/comments?postId=${
-                      i + 1
-                    }`
-                  )
-                  .then((res) => {
-                    let comments = res.data;
-                    axios
-                      .get(
-                        `https://jsonplaceholder.typicode.com/users?id=${currentPost.userId}`
-                      )
-                      .then((res) => {
-                        const user = res.data[0];
-                        const final = {
-                          userId: currentPost.userId,
-                          name: user.name,
-                          username: user.username,
-                          email: user.email,
-                          postId: currentPost.id,
-                          url: photo.url,
-                          thumbnailUrl: photo.thumbnailUrl,
-                          title: currentPost.title,
-                          body: currentPost.body,
-                          comments: comments,
-                          showComments: false,
-                        };
+  // useEffect(() => {
+  //   const getData = () => {
+  //     axios
+  //       .get("https://jsonplaceholder.typicode.com/posts")
+  //       .then((res) => {
+  //         const allPosts = res.data;
+  //         for (let i = 0; i < allPosts.length; i++) {
+  //           let currentPost = allPosts[i];
+  //           axios
+  //             .get(`https://jsonplaceholder.typicode.com/photos?id=${i + 1}`)
+  //             .then((res) => {
+  //               let photo = res.data[0];
+  //               axios
+  //                 .get(
+  //                   `https://jsonplaceholder.typicode.com/comments?postId=${
+  //                     i + 1
+  //                   }`
+  //                 )
+  //                 .then((res) => {
+  //                   let comments = res.data;
+  //                   axios
+  //                     .get(
+  //                       `https://jsonplaceholder.typicode.com/users?id=${currentPost.userId}`
+  //                     )
+  //                     .then((res) => {
+  //                       const user = res.data[0];
+  //                       const final = {
+  //                         userId: currentPost.userId,
+  //                         name: user.name,
+  //                         username: user.username,
+  //                         email: user.email,
+  //                         postId: currentPost.id,
+  //                         url: photo.url,
+  //                         thumbnailUrl: photo.thumbnailUrl,
+  //                         title: currentPost.title,
+  //                         body: currentPost.body,
+  //                         comments: comments,
+  //                         showComments: false,
+  //                       };
 
-                        dispatch(addPost(final));
-                      })
-                      .catch((e) => {
-                        console.log(`error getting user ${e}`);
-                      });
-                  })
-                  .catch((e) => {
-                    console.log(`error getting comments ${e}`);
-                  });
-              })
-              .catch((e) => {
-                console.log(`error getting photo ${e}`);
-              });
-          }
-        })
-        .catch((e) => {
-          console.log(`error getting posts ${e}`);
-        });
-    };
-    getData();
-  }, [dispatch]);
+  //                       dispatch(addPost(final));
+  //                     })
+  //                     .catch((e) => {
+  //                       console.log(`error getting user ${e}`);
+  //                     });
+  //                 })
+  //                 .catch((e) => {
+  //                   console.log(`error getting comments ${e}`);
+  //                 });
+  //             })
+  //             .catch((e) => {
+  //               console.log(`error getting photo ${e}`);
+  //             });
+  //         }
+  //       })
+  //       .catch((e) => {
+  //         console.log(`error getting posts ${e}`);
+  //       });
+  //   };
+  //   getData();
+  // }, [dispatch]);
 
   return (
     <div>
@@ -81,7 +81,7 @@ const PostList = () => {
         })
         .map((post, index) => {
           if (index < numOfPosts) {
-            return <Post post={post} />;
+            return <Post key={index} post={post}/>;
           } else {
             return null;
           }
@@ -92,7 +92,7 @@ const PostList = () => {
             dispatch(morePosts());
           }}
           type="button"
-          class="btn btn-info"
+          className="btn btn-info"
         >
           See More
         </button>
