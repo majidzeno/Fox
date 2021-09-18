@@ -61,20 +61,20 @@ function App() {
                         dispatch(addPost(final));
                       })
                       .catch((e) => {
-                        console.log(`error getting user ${e}`);
+                        console.error(`error getting user ${e}`);
                       });
                   })
                   .catch((e) => {
-                    console.log(`error getting comments ${e}`);
+                    console.error(`error getting comments ${e}`);
                   });
               })
               .catch((e) => {
-                console.log(`error getting photo ${e}`);
+                console.error(`error getting photo ${e}`);
               });
           }
         })
         .catch((e) => {
-          console.log(`error getting posts ${e}`);
+          console.error(`error getting posts ${e}`);
         });
     };
     getData();
@@ -87,6 +87,7 @@ function App() {
     return <h1>Loading...</h1>
   }
   else{
+  
     return (
       <div>
         <Header />
@@ -97,7 +98,7 @@ function App() {
             path="/post/:id"
             render={({ match }) => <PostDetail postId={match.params.id} />}
           />
-          <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />} />
+          <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />}/>
         </Switch>
       </div>
     );

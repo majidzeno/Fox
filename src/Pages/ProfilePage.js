@@ -2,11 +2,8 @@ import PostList from '../Components/Posts/PostList/PostList';
 import {useSelector} from 'react-redux';
 
 const ProfilePage = (props) => {
-    console.log("ProfilePage props: ", props.posts);
     const userPosts = props.posts.filter(p => p.userId === parseInt(props.match.params.id));
-    console.log("User Posts: ", userPosts);
     const user = userPosts[0];
-    console.log("User: ", user);
     const numOfPosts = useSelector((state) => state.numOfPosts);
 
     return(
