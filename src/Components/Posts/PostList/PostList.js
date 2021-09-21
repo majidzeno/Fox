@@ -5,6 +5,7 @@ import { morePosts } from "../../Slices/rootSlice";
 import "./PostList.css";
 
 const PostList = ({posts, numOfPosts}) => {
+  console.log("Posts ", posts);
   const searchValue = useSelector((state) => state.searchValue);
   const dispatch = useDispatch();
   console.log(searchValue);
@@ -23,15 +24,16 @@ const PostList = ({posts, numOfPosts}) => {
           }
         })}
       <div className="moreBtn">
-        <button
-          onClick={() => {
-            dispatch(morePosts());
-          }}
-          type="button"
-          className="btn btn-info"
-        >
-          See More
-        </button>
+        {posts.length === 0 ? null : 
+          <button
+            onClick={() => {
+              dispatch(morePosts());
+            }}
+            type="button"
+            className="btn btn-info"
+          >
+            See More
+          </button>}
       </div>
     </div>
   );

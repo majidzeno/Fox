@@ -4,18 +4,41 @@ import PostList from "./Components/Posts/PostList/PostList";
 import { Route, Switch } from "react-router-dom";
 import AddPost from "./Components/AddPost/AddPost";
 import PostDetail from "./Components/PostDetail/PostDetail";
+
+import Loading from "./Components/Loading/Loading";
+import NavSide from "./Components/Side Nav/SideNav";
+
 import ProfilePage from './Pages/ProfilePage';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "./Components/Slices/rootSlice";
 import axios from "axios";
 
+const NewPage = (props) => {
+  console.log("New Page Props ", props);
+  return(
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-2">
+          <NavSide />
+        </div>
+
+        {props.posts.length === 0 ? 
+          <div className="col-lg-8"><Loading /></div> : 
+          <div className="col-lg-8"><PostList posts={props.posts} numOfPosts={props.numOfPosts}/></div>
+        }
+
+        <div className="col-lg-2">Column</div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const posts = useSelector((state) => state.posts);
+
   const numOfPosts = useSelector((state) => state.numOfPosts);
   const dispatch = useDispatch();
-
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const getData = () => {
@@ -57,7 +80,7 @@ function App() {
                           showComments: false,
                         };
 
-                        setIsLoaded(true);
+                        //setIsLoaded(true);
                         dispatch(addPost(final));
                       })
                       .catch((e) => {
@@ -83,26 +106,20 @@ function App() {
   console.log("Posts", posts);
   console.log("Number of posts", numOfPosts);
 
-  if(!isLoaded){
-    return <h1>Loading...</h1>
-  }
-  else{
-  
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" render={(props) => <PostList {...props} posts={posts} numOfPosts={numOfPosts} />} />
-          <Route exact path="/addpost" component={AddPost} />
-          <Route
-            path="/post/:id"
-            render={({ match }) => <PostDetail postId={match.params.id} />}
-          />
-          <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />}/>
-        </Switch>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" render={(props) => <NewPage {...props} posts={posts} numOfPosts={numOfPosts} />} />
+        <Route exact path="/addpost" component={AddPost} />
+        <Route
+          path="/post/:id"
+          render={({ match }) => <PostDetail postId={match.params.id} />}
+        />
+        <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />}/>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;

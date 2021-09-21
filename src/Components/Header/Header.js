@@ -81,8 +81,11 @@ const Header = () => {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              onChange={(e) => {
+                dispatch(changeSearch(e.target.value));
+              }}
             />
-            <button
+            {/* <button
               className="btn btn-outline-success"
               onClick={(e) => {
                 e.preventDefault();
@@ -90,7 +93,7 @@ const Header = () => {
               }}
             >
               Search
-            </button>
+            </button> */}
           </form>
         </div>
       </div>

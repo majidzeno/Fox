@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { tooglePostComments, addComment } from "../../Slices/rootSlice";
 import "./Post.css";
 import { Link } from "react-router-dom";
-import ProfilePage from '../../../Pages/ProfilePage';
 
 const Post = ({ post }) => {
   let showComments = useSelector((state) => {

@@ -13,7 +13,7 @@ const ProfilePage = (props) => {
             <h1>{user.name}</h1>
             <h6>{user.username}</h6>
         </div>
-        <div className="container" style={{border: '2px solid red'}}>
+        <div className="container" >
             <PostList posts={userPosts} numOfPosts={numOfPosts} />
         </div>
         </>
