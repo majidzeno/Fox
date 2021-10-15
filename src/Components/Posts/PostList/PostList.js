@@ -5,10 +5,10 @@ import { morePosts } from "../../Slices/rootSlice";
 import "./PostList.css";
 
 const PostList = ({posts, numOfPosts}) => {
-  console.log("Posts ", posts);
+  //console.log("Posts ", posts);
   const searchValue = useSelector((state) => state.searchValue);
   const dispatch = useDispatch();
-  console.log(searchValue);
+  //console.log(searchValue);
 
   return (
     <div>

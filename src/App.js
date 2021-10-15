@@ -9,14 +9,24 @@ import Loading from "./Components/Loading/Loading";
 import NavSide from "./Components/Side Nav/SideNav";
 
 import ProfilePage from './Pages/ProfilePage';
+import CurrUserProfile from './Pages/CurrUserProfile';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "./Components/Slices/rootSlice";
 import axios from "axios";
 
+import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './Components/PrivateRoute'
+import SignUp from './Components/SignUp/SignUp'
+import Login from './Components/Login/Login'
+import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
+import UpdateProfile from './Pages/UpdateProfile'
+
 const NewPage = (props) => {
-  console.log("New Page Props ", props);
+  
   return(
+  <>
+    <Header/>
     <div className="container">
       <div className="row">
         <div className="col-lg-2">
@@ -31,10 +41,12 @@ const NewPage = (props) => {
         <div className="col-lg-2">Column</div>
       </div>
     </div>
+    </>
   );
 }
 
 function App() {
+
   const posts = useSelector((state) => state.posts);
 
   const numOfPosts = useSelector((state) => state.numOfPosts);
@@ -103,21 +115,28 @@ function App() {
     getData();
   }, [dispatch]);
 
-  console.log("Posts", posts);
-  console.log("Number of posts", numOfPosts);
+  //console.log("Posts", posts);
+  //console.log("Number of posts", numOfPosts);
 
   return (
     <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" render={(props) => <NewPage {...props} posts={posts} numOfPosts={numOfPosts} />} />
-        <Route exact path="/addpost" component={AddPost} />
-        <Route
-          path="/post/:id"
-          render={({ match }) => <PostDetail postId={match.params.id} />}
-        />
-        <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />}/>
-      </Switch>
+      {/* <Header /> */}
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path="/" render={(props) => <NewPage {...props} posts={posts} numOfPosts={numOfPosts} />} />
+          <Route exact path="/addpost" component={AddPost} />
+          <Route
+            path="/post/:id"
+            render={({ match }) => <PostDetail postId={match.params.id} />}
+          />
+          <Route path="/profile/:id" render={(props) => <ProfilePage {...props} posts={posts} />}/>
+          <Route path='/signup' component={SignUp} />
+          <Route path='/login' component={Login} />
+          <Route path='/forgot-password' component={ForgotPassword} />
+          <Route path="/user/:username" render={props => <CurrUserProfile {...props} posts={posts} />}/>
+          <PrivateRoute path="/update-profile" render={(props) => <UpdateProfile {...props} />} />
+        </Switch>
+      </AuthProvider>
     </div>
   );
 }

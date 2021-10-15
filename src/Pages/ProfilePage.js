@@ -1,4 +1,5 @@
 import PostList from '../Components/Posts/PostList/PostList';
+import Header from '../Components/Header/Header'
 import {useSelector} from 'react-redux';
 
 const ProfilePage = (props) => {
@@ -8,6 +9,7 @@ const ProfilePage = (props) => {
 
     return(
         <>
+        <Header/>
         <div className="container py-3 d-flex flex-column justify-content-center align-items-center" style={{border: '2px solid red'}}>
             <img src={user.thumbnailUrl} alt="Profile Pic" style={{borderRadius: '50%'}} />
             <h1>{user.name}</h1>
